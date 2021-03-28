@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Compras</title>
+</head>
+<body>
+  <form class="lista-form">
+    <div class="form-field">
+      <label for="nomeItem">Nome do ítem</label>
+      <input type="text" id="nomeItem" maxlength="30">
+    </div>
+    <br>
+    <button id="adicionaItems" type="button" onClick="adicionaItem(nomeItem.value)">Adicionar ítem</button>
+    <button id="ordenaItems" type="button" onClick="ordenar()">Ordenar</button>
+    <button id="limparLista" type="button" onClick="limpaLista()">Limpar Lista</button>
+    <button id="limparUltimo" type="button" onClick="limpaUltimo()">Limpar último</button>
+  </form>
+  <hr>
+  <div class="lista">
+    <ul id="listaCompras"></ul>
+  </div>
+
+  <script src="./lista-compras.js"></script>
+</body>
+</html>
