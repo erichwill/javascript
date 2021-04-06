@@ -5,11 +5,12 @@ const quantidadeProduto = document.getElementById("quantidadeProduto");
 const categoriaProduto = document.getElementById("categoriaProduto");
 const linkImagemProduto = document.getElementById("linkImagemProduto");
 const inputBusca = document.getElementById("inputBusca");
+const filtroBusca = document.getElementById("filtroBusca");
 let proximoId = 1;
 
 inputBusca.addEventListener("keyup", (event) => {
-  const descricao = event.target.value;
-  const listaProdutos = buscaProdutosPorDescricao(descricao);
+  const valor = event.target.value;
+  const listaProdutos = buscaProdutosPorFiltro(filtroBusca.value, valor);
   atualizaListaProdutos(listaProdutos);
 });
 
@@ -35,12 +36,20 @@ const limpaCampos = () => {
   linkImagemProduto.value = "";
 };
 
-const buscaProdutosPorDescricao = (descricao) => {
-  const descricaoUpperCase = descricao.toUpperCase();
-  const produtosEncontrados = produtos.filter(
-    (produto) => produto.descricao.toUpperCase().search(descricaoUpperCase) > -1
+const buscaPorDescricao = (descricao) => (produto) =>
+  produto.descricao.toUpperCase().search(descricao.toUpperCase()) > -1;
+
+const buscaPorId = (id) => {
+  return (produto) => produto.id === id;
+};
+
+const buscaProdutosPorFiltro = (tipoFiltro, valor) => {
+  const listaProdutosEncontrados = produtos.filter(
+    tipoFiltro === "id"
+      ? buscaPorId(parseInt(valor))
+      : buscaPorDescricao(valor.toUpperCase())
   );
-  return produtosEncontrados;
+  return listaProdutosEncontrados;
 };
 
 const atualizaListaProdutos = (listaProdutos) => {

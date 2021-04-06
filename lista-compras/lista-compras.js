@@ -19,11 +19,13 @@ function adicionaItem(item) {
   }
 }
 
-function atualizaLista() {
+function atualizaLista(listaComprasBusca) {
   const ulTag = document.getElementById("listaCompras");
   let listaLi = "";
-
-  for (item of listaCompras) {
+  const listaComprasAConsiderar = listaComprasBusca
+    ? listaComprasBusca
+    : listaComprasAConsiderar;
+  for (item of listaComprasAConsiderar) {
     listaLi += `<li>${item}</li>`;
   }
   ulTag.innerHTML = listaLi;
@@ -43,3 +45,7 @@ function limpaUltimo() {
   listaCompras.splice(-1);
   atualizaLista();
 }
+
+const buscaItem = (nomeItem) => {
+  const listaComprasBusca = listaCompras.filter((item) => item === nomeItem);
+};

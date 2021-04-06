@@ -16,6 +16,13 @@
     <!-- Área do navbar -->
     <nav class="nav-bar">
         <h3 id="nav-titulo">Controle de Estoque</h3>
+        <label for="filtroBusca">
+            Buscar por:
+            <select id="filtroBusca">
+                <option value="id">ID</option>
+                <option value="descricao">Descrição</option>
+            </select>
+        </label>
         <form class="form-busca">
             <input type="text" id="inputBusca" class="input-busca" placeholder="Digite o nome de um produto para procurar">
             <span class="material-icons busca">
