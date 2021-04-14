@@ -10,9 +10,31 @@ const divVisualizacao = document.getElementById("visualizacao");
 const divIndicadores = document.getElementById("indicadores");
 const exibeMensagemSucesso = criarExibirMensagem(alert);
 const exibeMensagemErro = criarExibirMensagem(alert);
+const selectTipoBusca = document.getElementById("tipoBusca");
+const inputBusca = document.getElementById("inputBusca");
 const alunos = [];
 const idadeSenior = 60;
 let proximoId = 1;
+
+inputBusca.addEventListener("keyup", (event) => {
+  const valor = event.target.value;
+  const listaAlunosFiltrada = alunos.filter(
+    selectTipoBusca.value === "id"
+      ? buscaPorId(parseInt(valor))
+      : selectTipoBusca.value === "nome"
+      ? buscaPorNome(valor)
+      : selectTipoBusca.value === "idade"
+      ? buscaPorIdade(parseInt(valor))
+      : selectTipoBusca.value === "professor"
+      ? buscaPorProfessor(valor)
+      : true
+  );
+  if (valor && listaAlunosFiltrada.length == 0) {
+    divVisualizacao.innerHTML = "<br><h4>Ítem não encontrado!</h4>";
+  } else {
+    atualizaListaAlunos(listaAlunosFiltrada);
+  }
+});
 
 const adicionaAluno = (
   nomeAluno,
@@ -38,9 +60,13 @@ const adicionaAluno = (
   atualizaListaAlunos();
 };
 
-const atualizaListaAlunos = () => {
+const atualizaListaAlunos = (listaAlunosFiltrada) => {
   let cards = "";
-  for (aluno of alunos) {
+  const listaAlunos =
+    listaAlunosFiltrada && listaAlunosFiltrada.length > 0
+      ? listaAlunosFiltrada
+      : alunos;
+  for (aluno of listaAlunos) {
     cards += `
       <div class="card">
             <div class="descricao-card">
@@ -104,6 +130,20 @@ const atualizaIndicadores = () => {
 
 const buscaPorId = (id) => (aluno) => aluno.id === id;
 
+const buscaPorIdade = (idade) => (aluno) => aluno.idade === idade;
+
+const buscaPorNome = (nome) => (aluno) => {
+  return aluno.nomeAluno.toUpperCase().search(nome.toUpperCase()) > -1;
+};
+
+const buscaPorProfessor = (professorResponsavel) => (aluno) => {
+  return (
+    aluno.professorResponsavel
+      .toUpperCase()
+      .search(professorResponsavel.toUpperCase()) > -1
+  );
+};
+
 const removeAluno = (id) => {
   const alunoIndex = alunos.findIndex(buscaPorId(id));
   alunos.splice(alunoIndex, 1);
@@ -117,4 +157,18 @@ const atualizaStatusAcesso = (id, statusAtual) => {
     alunos[alunoIndex].temAcesso = !statusAtual;
   }
   atualizaListaAlunos();
+};
+
+const limpaCampos = (
+  nomeAluno,
+  idade,
+  valorMensalidade,
+  professorResponsavel,
+  temAcesso
+) => {
+  nomeAluno.value = "";
+  idade.value = "";
+  valorMensalidade.value = "";
+  professorResponsavel.value = "";
+  temAcesso.value = "";
 };

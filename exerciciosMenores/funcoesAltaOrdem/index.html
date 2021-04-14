@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <form>
+    <input type="number" id="idadeMinima" placeholder="Idade mínima">
+    <input type="number" id="idadeMaxima" placeholder="Idade máxima">
+    <button type="button" onclick="buscaPorIdades(parseInt(idadeMinima.value), parseInt(idadeMaxima.value))">Buscar</button>
+  </form>
+  <h3>Lista de usuário</h3>
+  <ul id="listaUsuarios">
+
+  </ul>
+</body>
+</html>
